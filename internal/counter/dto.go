@@ -1,5 +1,5 @@
 package counter
 
-type CounterResponse struct {
+type counterResponse struct {
 	Count int32 `json:"count"`
 }

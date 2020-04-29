@@ -8,21 +8,21 @@ import (
 
 const CountRequestIsRobot = 100
 
-type UserCounter struct {
-	listUserCount ListUserCount
+type userCounter struct {
+	listUserCount listUserCount
 	count         int32
 	mux           sync.Mutex
 }
 
-func newUserCounter() *UserCounter {
-	var userCounter = &UserCounter{}
+func newUserCounter() *userCounter {
+	var userCounter = &userCounter{}
 	userCounter.reset()
 	startResetSchedulerUserCounter(userCounter)
 	return userCounter
 }
 
 //startResetSchedulerUserCounter запуск сброса счетчика по рассписанию (каждую минуту)
-func startResetSchedulerUserCounter(userCounter *UserCounter) {
+func startResetSchedulerUserCounter(userCounter *userCounter) {
 	ticker := time.NewTicker(time.Minute * 1)
 	go func() {
 		for _ = range ticker.C {
@@ -32,12 +32,12 @@ func startResetSchedulerUserCounter(userCounter *UserCounter) {
 }
 
 //getRobotCount  получить кол-во роботов за последнюю минуту
-func (u *UserCounter) getRobotCount() int32 {
+func (u *userCounter) getRobotCount() int32 {
 	return u.count
 }
 
 //incrUser увеличить счетчик для пользователя
-func (u *UserCounter) incrUser(userId string) {
+func (u *userCounter) incrUser(userId string) {
 	u.mux.Lock()
 	userCount := u.listUserCount.getUserCount(userId)
 	if userCount == nil {
@@ -56,12 +56,12 @@ func (u *UserCounter) incrUser(userId string) {
 }
 
 //inc увеличить счетчик роботов
-func (u *UserCounter) inc() {
+func (u *userCounter) inc() {
 	atomic.AddInt32(&u.count, 1)
 }
 
 //reset сбросить записи счетчика
-func (u *UserCounter) reset() {
+func (u *userCounter) reset() {
 	u.mux.Lock()
 	defer u.mux.Unlock()
 	u.listUserCount = newListUserCount()

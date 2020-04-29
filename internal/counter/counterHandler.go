@@ -18,15 +18,15 @@ func doJSONWrite(ctx *fasthttp.RequestCtx, code int, obj interface{}) {
 	}
 }
 
-type CounterHandler struct {
-	userCounterService *UserCounter
+type counterHandler struct {
+	userCounterService *userCounter
 }
 
-func NewCounterHandler() *CounterHandler {
-	return &CounterHandler{userCounterService: newUserCounter()}
+func NewCounterHandler() *counterHandler {
+	return &counterHandler{userCounterService: newUserCounter()}
 }
 
-func (h *CounterHandler) HandleCommon(ctx *fasthttp.RequestCtx) {
+func (h *counterHandler) HandleCommon(ctx *fasthttp.RequestCtx) {
 	switch string(ctx.Path()) {
 	case "/":
 		h.handleIndex(ctx)
@@ -37,13 +37,13 @@ func (h *CounterHandler) HandleCommon(ctx *fasthttp.RequestCtx) {
 	}
 }
 
-func (h *CounterHandler) handleIndex(ctx *fasthttp.RequestCtx) {
+func (h *counterHandler) handleIndex(ctx *fasthttp.RequestCtx) {
 	userId := string(ctx.QueryArgs().Peek("user_id"))
 	ctx.Response.SetStatusCode(fasthttp.StatusOK)
 	ctx.SetBody([]byte{})
 	go h.userCounterService.incrUser(userId)
 }
 
-func (h *CounterHandler) handleCounter(ctx *fasthttp.RequestCtx) {
-	doJSONWrite(ctx, fasthttp.StatusOK, CounterResponse{Count: h.userCounterService.getRobotCount()})
+func (h *counterHandler) handleCounter(ctx *fasthttp.RequestCtx) {
+	doJSONWrite(ctx, fasthttp.StatusOK, counterResponse{Count: h.userCounterService.getRobotCount()})
 }

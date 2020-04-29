@@ -4,27 +4,27 @@ import (
 	"sync/atomic"
 )
 
-type ListUserCount map[string]*UserCount
+type listUserCount map[string]*userCount
 
-func newListUserCount() ListUserCount {
-	return make(map[string]*UserCount)
+func newListUserCount() listUserCount {
+	return make(map[string]*userCount)
 }
 
-func (l ListUserCount) getUserCount(userId string) *UserCount {
+func (l listUserCount) getUserCount(userId string) *userCount {
 	if el, ok := l[userId]; ok {
 		return el
 	}
 	return nil
 }
 
-type UserCount struct {
+type userCount struct {
 	Count int32
 }
 
-func newUserCount() *UserCount {
-	return &UserCount{Count: 1}
+func newUserCount() *userCount {
+	return &userCount{Count: 1}
 }
 
-func (u *UserCount) incr() {
+func (u *userCount) incr() {
 	atomic.AddInt32(&u.Count, 1)
 }
