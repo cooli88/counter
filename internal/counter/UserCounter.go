@@ -23,14 +23,10 @@ func newUserCounter() *UserCounter {
 
 //startResetSchedulerUserCounter запуск сброса счетчика по рассписанию (каждую минуту)
 func startResetSchedulerUserCounter(userCounter *UserCounter) {
-	minuteReset := time.Now().Minute()
-	ticker := time.NewTicker(time.Millisecond * 500)
+	ticker := time.NewTicker(time.Minute * 1)
 	go func() {
-		for t := range ticker.C {
-			if minuteReset != t.Minute() {
-				userCounter.reset()
-				minuteReset = t.Minute()
-			}
+		for _ = range ticker.C {
+			userCounter.reset()
 		}
 	}()
 }
