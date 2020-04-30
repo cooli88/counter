@@ -45,5 +45,5 @@ func (h *counterHandler) handleIndex(ctx *fasthttp.RequestCtx) {
 }
 
 func (h *counterHandler) handleCounter(ctx *fasthttp.RequestCtx) {
-	doJSONWrite(ctx, fasthttp.StatusOK, counterResponse{Count: h.userCounterService.getRobotCount()})
+	doJSONWrite(ctx, fasthttp.StatusOK, counterResponse{Count: h.userCounterService.robotCount()})
 }

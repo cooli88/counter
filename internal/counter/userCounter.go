@@ -31,15 +31,15 @@ func startResetSchedulerUserCounter(userCounter *userCounter) {
 	}()
 }
 
-//getRobotCount  получить кол-во роботов за последнюю минуту
-func (u *userCounter) getRobotCount() int32 {
+//robotCount  получить кол-во роботов за последнюю минуту
+func (u *userCounter) robotCount() int32 {
 	return u.count
 }
 
 //incrUser увеличить счетчик для пользователя
 func (u *userCounter) incrUser(userId string) {
 	u.mux.Lock()
-	userCount := u.listUserCount.getUserCount(userId)
+	userCount := u.listUserCount.userCount(userId)
 	if userCount == nil {
 		u.listUserCount[userId] = newUserCount()
 		u.mux.Unlock()

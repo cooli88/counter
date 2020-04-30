@@ -69,8 +69,8 @@ func TestCounter1(t *testing.T) {
 
 	wg.Wait()
 
-	if userCounter.getRobotCount() != 5 {
-		t.Error("Expected 5, got ", userCounter.getRobotCount())
+	if userCounter.robotCount() != 5 {
+		t.Error("Expected 5, got ", userCounter.robotCount())
 	}
 }
 
@@ -81,29 +81,29 @@ func TestCounter3(t *testing.T) {
 		userCounter.incrUser("test1")
 	}
 
-	if userCounter.getRobotCount() != 1 {
-		t.Error("Expected 1, got ", userCounter.getRobotCount())
+	if userCounter.robotCount() != 1 {
+		t.Error("Expected 1, got ", userCounter.robotCount())
 	}
 
 	for i := 0; i < 100; i++ {
 		userCounter.incrUser("test2")
 	}
 
-	if userCounter.getRobotCount() != 2 {
-		t.Error("Expected 1, got ", userCounter.getRobotCount())
+	if userCounter.robotCount() != 2 {
+		t.Error("Expected 1, got ", userCounter.robotCount())
 	}
 
 	userCounter.reset()
 
-	if userCounter.getRobotCount() != 0 {
-		t.Error("Expected 0, got ", userCounter.getRobotCount())
+	if userCounter.robotCount() != 0 {
+		t.Error("Expected 0, got ", userCounter.robotCount())
 	}
 
 	for i := 0; i < 100; i++ {
 		userCounter.incrUser("test2")
 	}
 
-	if userCounter.getRobotCount() != 1 {
-		t.Error("Expected 1, got ", userCounter.getRobotCount())
+	if userCounter.robotCount() != 1 {
+		t.Error("Expected 1, got ", userCounter.robotCount())
 	}
 }

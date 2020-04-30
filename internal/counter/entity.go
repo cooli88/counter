@@ -10,7 +10,7 @@ func newListUserCount() listUserCount {
 	return make(map[string]*userCount)
 }
 
-func (l listUserCount) getUserCount(userId string) *userCount {
+func (l listUserCount) userCount(userId string) *userCount {
 	if el, ok := l[userId]; ok {
 		return el
 	}
