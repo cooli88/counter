@@ -25,6 +25,6 @@ func newUserCount() *userCount {
 	return &userCount{Count: 1}
 }
 
-func (u *userCount) incr() {
-	atomic.AddInt32(&u.Count, 1)
+func (u *userCount) incr() int32 {
+	return atomic.AddInt32(&u.Count, 1)
 }

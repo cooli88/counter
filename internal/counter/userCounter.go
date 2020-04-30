@@ -49,8 +49,7 @@ func (u *userCounter) incrUser(userId string) {
 	if userCount.Count >= CountRequestIsRobot {
 		return
 	}
-	userCount.incr()
-	if userCount.Count == CountRequestIsRobot {
+	if userCount.incr() == CountRequestIsRobot {
 		u.inc()
 	}
 }
